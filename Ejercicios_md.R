@@ -1,3 +1,4 @@
+#1RA PARTE ----
 #1 ----
 #1.a
 
@@ -91,6 +92,8 @@ dim(c_aprob)[1] #Cantidad de aprobados
 table(c_aprob)
 
 #Con vectores
+names(nota) <- grupo
+nota
 nota[ grupo == "B" & nota >= 6]
 length(nota[ grupo == "B" & nota >= 6])
 
@@ -103,13 +106,16 @@ y <- length(nota[grupo == "C"])
 (x/y)*100
 
 #f
-
+names(nota) <- NULL #Si borramos el nombre del vector no sale
+names(nota) <- grupo
 which(nota == min(nota))
 which(nota == max(nota))
 
 #g
 
 mean(nota[grupo %in% c("A", "B") & nota >= 6])
+
+subset()
 
 #6 ----
 quantile(nota, 0.66) #Percentil 66 de toda la muestra
@@ -151,6 +157,7 @@ sort(conc)[1:10]
 
 library(magrittr)
 
+conc
 length(conc)
 
 max(conc)
@@ -164,3 +171,119 @@ min
 hour %<>% floor()
 hour
 paste(hour, ":", min)
+
+
+
+  #2DA PARTE ----
+
+#1
+
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9 , 10)
+y <- c(1, 4, 6, 8, 25, 36, 49, 61, 81, 100)
+
+plot(x, y, type = "o")
+
+#2
+
+A <- cbind(c(1:4), seq(2, 8, by = 2), seq(3, 12, by = 3))
+A
+
+#3
+
+i <- diag(1, 3, 3)
+i
+
+#4
+#Con matriz
+m_nula <- matrix(rep(0, 16), nrow = 4, ncol = 4)
+m_nula
+
+#Con function
+matrix_nula <- function(k) {
+  nula <- diag(k);
+  for (i in 1:k) {
+  nula[i, i] = 0
+  };
+  return(nula)
+}
+matrix_nula(4)  
+
+#5
+diag(c(0, 2, 3, 4))
+
+B <- diag(4)
+B[1, 1] = 0
+B[2, 2] = 2 
+B[3, 3] = 3
+B[4, 4] = 4
+B
+
+#6
+A
+A_T <- matrix(matrix_a, nrow = 3, ncol = 4, byrow = T)
+A_T
+
+t(A) #Funcion transpuesta de A
+
+#7
+
+#8
+
+P <- matrix(c(1, -2, 1, 2, 4, 0, 3, -2, 1), nrow = 3, ncol = 3)
+P %*% P 
+
+pot_m <- function(m, n) {
+  pot = m;
+  for (i in 2:n) { 
+    pot <- pot %*% m
+    };
+  return(pot)
+}
+pot_m(P, 2)
+
+#9
+
+solve()
+
+#13
+
+data(co2)
+means = aggregate(co2, FUN=mean)
+year = as.vector(time(means))
+co2 = as.vector(means)
+
+co2
+lag(co2)
+
+dif <- co2 - lag(co2)
+dif
+
+dif_2020_2019 <- 2.64
+year_2020 <- 2020
+
+plot(x = year, y = dif, 
+     type = "b", 
+     xlab = "Año", 
+     ylab = "CO2 aumento por año",
+     xlim = c(1960, 2020),
+     ylim = c(0.2, 2.7))
+points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
+
+#14
+rainfall <- read_csv("data/rainfall.csv")
+rainfall
+
+result <- rainfall %>% 
+                  dplyr::filter(sep >= 180 | oct >= 180 |
+                                  nov >= 180 | dec >= 180 |
+                                  jan >= 180 | feb >= 180 |
+                                  mar >= 180 | apr >= 180 |
+                                  may >= 180) %>%
+          select(name)
+
+result2 <- as.vector(result[[1]])
+
+
+rain2 <- read.csv("data/rainfall.csv") %>% 
+  as_data_frame() %>% 
+    print
