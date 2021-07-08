@@ -1,0 +1,110 @@
+---
+title: "Ejercicios"
+author: 
+- "Valeria Llactayo Peña"
+- "Joaquin Romualdo Peña"
+- "Javier Sullcaray Barrientos"
+- "Jose Victorio Gonzales"
+- "Daniel Yauri Leyva"
+date: "10/07/2021"
+output: html_document
+header-includes:
+  - \renewcommand{\and}{\\}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Este documento R Markdown presenta la resolución de ejercicios del Curso de Programación II. Se adjunta el repositorio con los archivos utilizados en el siguiente [enlace](https://github.com/JoseVictorio/Ejercicios_Progra).
+
+
+
+## 1ra Parte
+
+Cargar las variables almacenadas en el siguiente archivo [RData](https://goo.gl/uDzU8v).
+
+**1. Calcula los valores numéricos aproximados de:**
+
+ a. $$\frac{0.3\cdot0.15}{0.3\cdot0.15+0.2\cdot0.8+0.5\cdot0.12}$$
+ 
+ ```{r a}
+a <- (0.3*0.15)/((0.3*0.15) + (0.2*0.8) + (0.5*0.12))
+round(a, 2)
+```
+
+ b. $$ \frac{5^6}{6!}e^{-5}$$
+ 
+ ```{r b}
+ b <- (5^6 / factorial(6)) * (exp(1))^(-5)
+round(b, 2)
+ ```
+ 
+ c. $$\begin{equation}
+{20 \choose 7}
+\end{equation}\: 0.4^7\: 6^{13}$$
+
+```{r c}
+comb <- factorial(20) / (factorial(7) * (factorial(20-7)))
+pot <- (0.4^7)*(0.6^13)
+
+c <- comb * pot
+round(c, 2)
+```
+
+**2. Realizar la siguiente suma:**
+
+ a. $$1+2+3+\ldots + 1000$$
+ b. $$1+2+4+8+16+\ldots + 1024$$
+
+**3. El vector `grupo` representa el grupo al que pertenece una serie de alumnos:**
+
+ a. ¿Cuántos elementos tiene?
+ b. ¿En qué posiciones del vector está la letra “A”?
+
+**4. El vector `nota` representa la nota de un examen de los alumnos que están en los grupos del vector `grupo`.**
+
+ a. ¿Cuanto suman todas las notas?
+ b. ¿Cual es la media aritmética de todas las notas?
+ c. ¿En qué posiciones están las notas mayores de 7.0?
+ d. Visualiza las notas ordenadas de mayor a menor
+ e. ¿En qué posición está la nota máxima?
+
+**5. A partir de los vectores `grupo` y `nota` definidos.**
+
+ a. Suma las notas de los 10 primeros alumnos del vector
+ b. ¿Cuántos alumnos hay del grupo C?
+ c. ¿Cuántos alumnos han aprobado?
+ d. ¿Cuántos alumnos del grupo B han aprobado?
+ e. ¿Qué porcentaje de alumnos del grupo C han aprobado?
+ f. ¿De qué grupos son la máxima y mínima notas de toda la muestra?
+ g. Nota media de los alumnos de grupo A y B, juntos, considerando sólo a los que han aprobado.
+
+**6. Calcula el percentil 66 de las notas de todos los alumnos, y también de los alumnos del grupo C.**
+
+**7. Un alumno tiene una nota de 4.9. ¿Qué porcentaje, del total de alumnos, tiene una nota menor o igual que la suya? ¿Y qué porcentaje tiene una nota mayor o igual que la suya?**
+
+**8. Realiza el gráfico de diagramas de caja de las notas de cada grupo, para poder comparar el nivel de cada uno de ellos.**
+
+**9. Si la variable `conc` recoge la concentración de plomo (en ppm) en el aire de cierta zona durante un día completo**
+
+ a. ¿Cuál ha sido la concentración máxima?
+ b. ¿En cuántos de los muestreos se ha superado la concentración de 40.0 ppm?
+ c. ¿Cuál ha sido la concentración media del día?
+ d. ¿Cuáles fueron las 10 mediciones más bajas del día?
+ e. Si la primera medida fue a las 00:00. ¿A qué hora del día se alcanzó la concentración máxima?
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
