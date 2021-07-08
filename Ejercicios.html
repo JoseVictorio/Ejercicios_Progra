@@ -211,8 +211,16 @@ round(c, 2)</code></pre>
 <p><strong>2. Realizar la siguiente suma:</strong></p>
 <ol style="list-style-type: lower-alpha">
 <li><span class="math display">\[1+2+3+\ldots + 1000\]</span></li>
+</ol>
+<pre class="r"><code>(1000*(1000+1))/2 #(n*(n+1))/2</code></pre>
+<pre><code>## [1] 500500</code></pre>
+<pre class="r"><code>sum(1:1000)</code></pre>
+<pre><code>## [1] 500500</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
 <li><span class="math display">\[1+2+4+8+16+\ldots + 1024\]</span></li>
 </ol>
+<pre class="r"><code>(1-(2^(10+1)))/(1-2) #(1-(r^(n+1)))/(1-r)</code></pre>
+<pre><code>## [1] 2047</code></pre>
 <p><strong>3. El vector <code>grupo</code> representa el grupo al que pertenece una serie de alumnos:</strong></p>
 <ol style="list-style-type: lower-alpha">
 <li>¿Cuántos elementos tiene?</li>

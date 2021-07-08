@@ -54,12 +54,34 @@ round(c, 2)
 **2. Realizar la siguiente suma:**
 
  a. $$1+2+3+\ldots + 1000$$
+ 
+ ```{r}
+(1000*(1000+1))/2 #(n*(n+1))/2
+
+sum(1:1000)
+ ```
+ 
  b. $$1+2+4+8+16+\ldots + 1024$$
+ 
+  ```{r}
+(1-(2^(10+1)))/(1-2) #(1-(r^(n+1)))/(1-r)
+ ```
 
 **3. El vector `grupo` representa el grupo al que pertenece una serie de alumnos:**
 
  a. ¿Cuántos elementos tiene?
+ 
+   ```{r grupo}
+
+table(grupo)
+length(grupo)
+ ```
+ 
  b. ¿En qué posiciones del vector está la letra “A”?
+ 
+   ```{r}
+which(grupo == "A")
+ ```
 
 **4. El vector `nota` representa la nota de un examen de los alumnos que están en los grupos del vector `grupo`.**
 

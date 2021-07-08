@@ -40,7 +40,7 @@ length(grupo)
 #3.b ¿En qué posiciones del vector está la letra “A”?
 
 which(grupo == "A")
-
+load()
 #4 ----
 nota
 #4.a
