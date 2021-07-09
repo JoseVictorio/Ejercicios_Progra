@@ -119,16 +119,48 @@ which(grupo == "A")
 **9. Si la variable `conc` recoge la concentración de plomo (en ppm) en el aire de cierta zona durante un día completo**
 
  a. ¿Cuál ha sido la concentración máxima?
+ 
+``` {r conc}
+max(conc)
+
+```
  b. ¿En cuántos de los muestreos se ha superado la concentración de 40.0 ppm?
+
+ ``` 
+which(conc > 40) %>% 
+  sum(conc > 40)
+
+```
  c. ¿Cuál ha sido la concentración media del día?
+ 
+``` 
+mean(conc)
+
+```
+ 
  d. ¿Cuáles fueron las 10 mediciones más bajas del día?
+ 
+``` 
+ sort(conc) %>% 
+  head(10)
+  
+``` 
  e. Si la primera medida fue a las 00:00. ¿A qué hora del día se alcanzó la concentración máxima?
 
+``` 
+as_tibble(conc) %>% 
+  mutate(hour = seq(
+    as.POSIXct("2020-01-01 00:00"),
+    as.POSIXct("2020-01-01 23:59"),
+    by = "5 min"
+  ))%>% 
+  print() %>% 
+  filter(value == max(value)) %>% 
+  print()
+  
+``` 
 
 
-```{r cars}
-summary(cars)
-```
 
 ## Including Plots
 
