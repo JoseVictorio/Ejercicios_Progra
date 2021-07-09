@@ -36,15 +36,14 @@ grupo
 
 table(grupo)
 length(grupo)
-
 #3.b ¿En qué posiciones del vector está la letra “A”?
 
 which(grupo == "A")
-load()
+
 #4 ----
 nota
 #4.a
-
+names(nota) = NULL
 sum(nota)
 
 #4.b
@@ -53,7 +52,7 @@ mean(nota)
 
 #4.c
 
-which(nota >= 7.0)
+which(nota > 7.0)
 
 #4.d
 
@@ -61,8 +60,7 @@ sort(nota, decreasing = T)
 
 #4.e
 
-max(nota)
-which(nota == 7.7)
+which(nota == max(nota))
 
 #5 ----
 
@@ -76,9 +74,9 @@ sum(grupo == "C")
 table(grupo) #Comprobacion
 
 #c
-#Aprobado >=6
+#Aprobado >= 5.5
 
-sum(nota >= 6)
+sum(nota >= 5.5)
 
 #d
 
@@ -92,14 +90,16 @@ dim(c_aprob)[1] #Cantidad de aprobados
 table(c_aprob)
 
 #Con vectores
+
 names(nota) <- grupo
 nota
-nota[ grupo == "B" & nota >= 6]
-length(nota[ grupo == "B" & nota >= 6])
+nota[grupo == "B" & nota >= 5.5]
+length(nota[ grupo == "B" & nota >= 5.5])
+sum(grupo == "B" & nota >= 5.5)
 
 #e
 
-x <- length(nota[ grupo == "C" & nota >= 6])
+x <- length(nota[ grupo == "C" & nota >= 5.5])
 
 y <- length(nota[grupo == "C"])
 
@@ -110,17 +110,18 @@ names(nota) <- NULL #Si borramos el nombre del vector no sale
 names(nota) <- grupo
 which(nota == min(nota))
 which(nota == max(nota))
+which.max(nota)
+which.min(nota)
 
 #g
 
-mean(nota[grupo %in% c("A", "B") & nota >= 6])
-
-subset()
+nota[grupo %in% c("A", "B") & nota >= 5.5] %>% mean()
 
 #6 ----
 quantile(nota, 0.66) #Percentil 66 de toda la muestra
 
 quantile(nota[grupo == "C"], 0.66)
+
 #El 66% de la muestra tiene una nota de ""
 
 #7 ----
@@ -129,12 +130,13 @@ quantile(nota[grupo == "C"], 0.66)
 (sum(nota >= 4.9)/length(nota))*100
 
 #8 ----
-
 boxplot(nota[grupo == "A"])
 boxplot(nota[grupo == "B"])
 boxplot(nota[grupo == "C"])
 boxplot(nota[grupo == "D"])
 boxplot(nota[grupo == "E"])
+
+table(grupo)
 
 #9 ----
 
@@ -151,7 +153,8 @@ mean(conc)
 
 #d
 
-sort(conc)[1:10]
+sort(conc) %>% 
+  head(10)
 
 #e >>> Falta comprobar
 
@@ -161,44 +164,47 @@ conc
 length(conc)
 
 max(conc)
-which(conc == max(conc))
 
-(24)/length(conc)
+ind_max <- which(conc == max(conc))
 
-hour <- which(conc == max(conc))*((24)/length(conc))
+hora_Data <- (24)/length(conc)
+
+hour <- ind_max*hora_Data
+
 min <- round((hour - floor(hour))*60, 0)
+
 min
 hour %<>% floor()
 hour
-paste(hour, ":", min)
-
-
+paste(hour, ":", min, "hrs")
 
   #2DA PARTE ----
 
-#1
+#1----
 
 x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9 , 10)
 y <- c(1, 4, 6, 8, 25, 36, 49, 61, 81, 100)
 
 plot(x, y, type = "o")
 
-#2
+#2----
 
 A <- cbind(c(1:4), seq(2, 8, by = 2), seq(3, 12, by = 3))
 A
 
-#3
+
+#3----
 
 i <- diag(1, 3, 3)
 i
 
-#4
+#4----
 #Con matriz
 m_nula <- matrix(rep(0, 16), nrow = 4, ncol = 4)
 m_nula
 
 #Con function
+
 matrix_nula <- function(k) {
   nula <- diag(k);
   for (i in 1:k) {
@@ -208,7 +214,7 @@ matrix_nula <- function(k) {
 }
 matrix_nula(4)  
 
-#5
+#5----
 diag(c(0, 2, 3, 4))
 
 B <- diag(4)
@@ -218,16 +224,16 @@ B[3, 3] = 3
 B[4, 4] = 4
 B
 
-#6
+#6----
 A
-A_T <- matrix(matrix_a, nrow = 3, ncol = 4, byrow = T)
+A_T <- matrix(A, nrow = 3, ncol = 4, byrow = T)
 A_T
 
 t(A) #Funcion transpuesta de A
 
-#7
+#7----
 
-#8
+#8----
 
 P <- matrix(c(1, -2, 1, 2, 4, 0, 3, -2, 1), nrow = 3, ncol = 3)
 P %*% P 
@@ -241,11 +247,11 @@ pot_m <- function(m, n) {
 }
 pot_m(P, 2)
 
-#9
+#9----
 
 solve()
 
-#13
+#13----
 
 data(co2)
 means = aggregate(co2, FUN=mean)
@@ -269,7 +275,7 @@ plot(x = year, y = dif,
      ylim = c(0.2, 2.7))
 points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
 
-#14
+#14----
 rainfall <- read_csv("data/rainfall.csv")
 rainfall
 
@@ -284,6 +290,20 @@ result <- rainfall %>%
 result2 <- as.vector(result[[1]])
 
 
-rain2 <- read.csv("data/rainfall.csv") %>% 
-  as_data_frame() %>% 
-    print
+
+#3RA PARTE ----
+
+cod_lambayeq <- read_csv("data/listRaingauge.csv") %>% 
+  dplyr::filter(NOM_EST == "LAMBAYEQUE") %>% 
+  select(CODIGO) %>% 
+  collect %>% .[[1]]
+
+data_lambayeq <- read_csv("data/raingaugeDataset.csv") %>% 
+  dplyr::select(date, qc00000301) %>% 
+  mutate(date = as.Date(date, format = "%d/%m/%Y")) %>% 
+  rename(pp = qc00000301)
+
+#a ----
+
+data_lambayeq %>% dplyr::select(qc00000301) %>% is.na() %>% sum()
+
