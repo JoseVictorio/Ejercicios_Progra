@@ -1,3 +1,4 @@
+rm(list = ls())
 library(tidyverse)
 library(magrittr)
 #PARTE 1---------------------
@@ -159,14 +160,16 @@ sort(conc) %>%
   head(10)
 #   Si la primera medida fue a las 00:00. 
 #¿A qué hora del día se alcanzó la concentración máxima?
-# nconc <- length(conc)
-# lapseh <- nconc/24
+as_tibble(conc) %>% 
+  mutate(
+    hour = seq(
+    as.POSIXct("2020-01-01 00:00"),
+    as.POSIXct("2020-01-01 23:59"),
+    by = "5 min"
+  ) ) %>% 
+  print()
+  
 
-seq(
-  as.POSIXct("2020-01-01 00:00"),
-  as.POSIXct("2020-01-01 23:59"),
-  by = "5 min"
-)
 
 conc
 length(conc)
