@@ -7,7 +7,14 @@ author:
 - "Jose Victorio Gonzales          17160051"
 - "Daniel Yauri Leiva              17160208"
 date: "10/07/2021"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_deph: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+
 header-includes:
   - \renewcommand{\and}{\\}
 ---
@@ -15,13 +22,18 @@ header-includes:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Este documento R Markdown presenta la resolución de ejercicios del Curso de Programación II. Se adjunta el repositorio con los archivos utilizados en el siguiente [enlace](https://github.com/JoseVictorio/Ejercicios_Progra).
+## **Introducción**
+
+> ***Este documento R Markdown presenta la resolución de ejercicios del Curso de Programación II. Se adjunta el repositorio con los archivos utilizados en el siguiente [enlace](https://github.com/JoseVictorio/Ejercicios_Progra).***
+
+
+>*comenzaremos cargando los datos que utilizamos*
 
 ```{r }
 load("datos.Rdata")
 ```
 
-## 1ra Parte
+## Parte 1
 
 Cargar las variables almacenadas en el siguiente archivo [RData](https://goo.gl/uDzU8v).
 
@@ -110,7 +122,7 @@ which.max(nota)
 ```
 
 **5. A partir de los vectores `grupo` y `nota` definidos.**
-```{r}
+```{r warning=FALSE, include=FALSE}
 library(tidyverse) 
 ```
  a) Suma las notas de los 10 primeros alumnos del vector
@@ -147,17 +159,20 @@ library(tidyverse)
  ```{r}
  mean(nota[grupo %in% c("A", "B") & nota>=5.5])
  ```
+
 **6. Calcula el percentil 66 de las notas de todos los alumnos, y también de los alumnos del grupo C.**
 ```{r}
 quantile(nota, 0.66)
 quantile(nota[grupo == "C"], 0.66) 
 ```
 
+
 **7. Un alumno tiene una nota de 4.9. ¿Qué porcentaje, del total de alumnos, tiene una nota menor o igual que la suya? ¿Y qué porcentaje tiene una nota mayor o igual que la suya?**
 ```{r}
 length(nota[nota <= 4.9])/length(nota)*100
 length(nota[nota >= 4.9])/length(nota)*100
 ```
+
 
 **8. Realiza el gráfico de diagramas de caja de las notas de cada grupo, para poder comparar el nivel de cada uno de ellos.**
 ```{r}
@@ -187,25 +202,30 @@ boxplot(nota[grupo == "E"])
  sort(conc)[1:10]
  ```
  e) Si la primera medida fue a las 00:00. ¿A qué hora del día se alcanzó la concentración máxima?
+ 
  ```{r}
+ 
 #Hallando el intervalo para la toma de muestras
 (24*60)/(length(conc)) 
 
-as_tibble(conc) %>% 
+#creando una columna con la secuencia horaria cada 5 minutos
+hseq <- as_tibble(conc) %>% 
   mutate(hour = seq(
     as.POSIXct("2020-01-01 00:00"),
     as.POSIXct("2020-01-01 23:59"),
     by = "5 min"
   ))%>% 
-  print() %>% 
-  filter(value == max(value)) %>% 
+  print()
+  
+  #mostrando el nuevo tibble
+  filter(hseq, value == max(value)) %>% 
   print()
 
 ```
 
 ## Parte 2
 
-**1. 1.Graficar los puntos $(1,1),(2,4),(3,6),(4,8),(5,25),(6,36),(7,49),(8,61),(9,81),(10,100)$ en un plano utilizando RStudio.**
+**1. Graficar los puntos $(1,1),(2,4),(3,6),(4,8),(5,25),(6,36),(7,49),(8,61),(9,81),(10,100)$ en un plano utilizando RStudio.**
 ```{r}
 a <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 b <- c(1, 4, 6, 8, 25, 36, 49, 61, 81, 100)
@@ -220,11 +240,13 @@ A<-cbind(seq(1, 4), seq(2, 8, by=2), seq(3, 12, by = 3))
 A
 ```
 
+
 **3. Ingresar la matriz identidad de tamaño 3**
 $I = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1  \end{pmatrix}$
 ```{r}
 diag(1, 3, 3)
 ```
+
 
 **4. Crea una función que cree una matriz nula ingresando las dimensiones**
 ```{r}
@@ -237,6 +259,7 @@ MatrizN <- function(k) {
 }
 MatrizN(4)
 ```
+
 
 **5. Modificar la matriz `diag(4)`, para que se parezca a la matriz B**
 $B = \begin{pmatrix} 0 & 0 & 0 & 0 \\ 0 & 2 & 0 & 0 \\ 0 & 0 & 3 & 0 \\ 0 & 0 & 0 & 4  \end{pmatrix}$
@@ -280,8 +303,10 @@ Solve(matriz01, matriz02)
 ```
 
 **10. Utilizando la ayuda de R, investigue para qué sirven las funciones `eigen()` y `det()`**
+
 det() = nos calcula el determinante de una matriz cuadrada
 eigen() = Calcula autovalores y autovectores de matrices numéricas (dobles, enteras, lógicas) o complejas.
+
 **11. Considerando las matrices**
 
 $B= \begin{pmatrix} 
@@ -362,6 +387,7 @@ co2
 #corremos un valor a la derecha
 lag(co2)
 
+#hallamos la diferencia
 dif <- co2 - lag(co2)
 dif
  ```
@@ -404,7 +430,7 @@ points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
 - Lee el archivo `rainfall.csv` como un `data.frame`
 - Calcula e imprime un vector con los nombres de las estaciones donde al menos uno de los meses tiene una precipitación superior a 180mm.
 
-``` {r}
+```{r}
 
 rainf <- read_csv("rainfall.csv") %>% 
   select(sep:name) %>% #seleccionamos las columnas con las que trabajaremos
@@ -422,7 +448,7 @@ rainf <- read_csv("rainfall.csv") %>%
 
 Utilizando el csv **(raingaugeDataset.csv)** de datos de precipitación diaria (período 1980 - 2013) de la estación "LAMBAYEQUE" con código único ***"qc00000301"***, para obtenerlo, realizamos lo siguiente:
 
-``` {r}
+```{undefined echo=TRUE}
 
 #filtrando los datos de nuestra estación en el archivo "listRaingauge.csv"
 MetEst <- read_csv("listRaingauge.csv") %>% 
@@ -511,10 +537,9 @@ d) Cree una función que calcule, a partir de los datos de preicpitación mensua
 
 pp8010 <-
   ppMonth %>% 
-  filter(date >= "1980-01-01" & date <="2010-12-31") %>% 
-  print() %>% 
+  filter(date >= "1980-01-01" & date <="2010-12-31") %>% #filtrando las fechas
   group_by(month) %>%
-  summarise(
+  summarise( #creando la tabla resumen
     ppmean = mean(pp, na.rm = T)
   ) %>%
   print()
