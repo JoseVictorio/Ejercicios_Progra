@@ -1,11 +1,7 @@
 ---
 title: "Ejercicios"
-author: 
-- "Valeria Llactayo Peña           17160046"
-- "Joaquin Romualdo Peña           17150052"
-- "Javier Sullcaray Barrientos     17160201"
-- "Jose Victorio Gonzales          17160051"
-- "Daniel Yauri Leiva              17160208"
+subtitle: "Curso de Programación II"
+
 date: "10/07/2021"
 output: 
 html_document:
@@ -17,6 +13,14 @@ html_document:
 header-includes:
   - \renewcommand{\and}{\\}
 ---
+
+Alumno | Código
+-- | --
+Valeria Llactayo Peña | 17160046
+Joaquin Romualdo Peña | 17150052
+Javier Sullcaray Barrientos | 17160201
+Jose Victorio Gonzales | 17160051
+Daniel Yauri Leiva | 17160208
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -280,11 +284,18 @@ Potencia <- function(n) {
 }
 Potencia(6)
 ```
-```{r}
-library(matlib)
-```
+
 **9. Resolver el sistema de ecuaciones**
 $3x - y + z  = -1\\9x - 2y + z = -9\\3x + y - 2z = -9$
+
+```{r include=FALSE}
+library(matlib) 
+```
+
+```{r eval=FALSE}
+#Cargaremos la libreria "matlib" para usar la función Solve()
+library(matlib) 
+```
 
 ```{r}
 matriz01 <- matrix(c(3,9,3,-1,-2,1,1,1,-2), nrow = 3, ncol =3 )
@@ -295,8 +306,11 @@ Solve(matriz01, matriz02)
 ```
 
 **10. Utilizando la ayuda de R, investigue para qué sirven las funciones `eigen()` y `det()`**
-det() = nos calcula el determinante de una matriz cuadrada
-eigen() = Calcula autovalores y autovectores de matrices numéricas (dobles, enteras, lógicas) o complejas.
+
+- det() = nos calcula el determinante de una matriz cuadrada
+
+- eigen() = Calcula autovalores y autovectores de matrices numéricas (dobles, enteras, lógicas) o complejas.
+
 **11. Considerando las matrices**
 
 $B= \begin{pmatrix} 
@@ -335,7 +349,8 @@ MB <- cbind(c(0, 1, 0, 0, 1),
            c(1, 0, 1, 0, 1),
            c(0, 1, 0, 1, 0))
 
-(MA %*% MB) - (MA %*% (t(MB)))
+(MA %*% MB) - (MA %*% (t(MB))) #t() para calcular la matriz transpuesta
+#Otra forma de calcular la matriz transpuesta de B:
 #B <- matrix(B, nrow = 5, ncol = 5, byrow = T)
 ```
 
@@ -352,7 +367,7 @@ $y = \begin{pmatrix}0\\0\\1\\1\\3\\\end{pmatrix}$
 x <- cbind(c(1:5), c(1, -1, 0, 1, 2))
 y <- cbind(c(0, 0, 1, 1, 3))
  
-(solve(t(x) %*% x)) %*% t(x) %*% y
+(solve(t(x) %*% x)) %*% t(x) %*% y #solve() calcula la inversa de la matriz
 ```
 
 **13. Corre el siguiente código para cargar los vectores `year` y `co2`** en memoria
@@ -371,15 +386,15 @@ co2 = as.vector(means)
   - $CO_2$ en 1961 menos $CO_2$  en 1960
   - y así sucesivamente...
   
- ```{r}
+```{r}
 co2
 
-#corremos un valor a la derecha
+#Corremos los datos del vector a la derecha con lag()
 lag(co2)
 
-dif <- co2 - lag(co2)
+dif <- co2 - dplyr::lag(co2)
 dif
- ```
+```
   
 - Crear un **plot** con lineas y puntos mostrando las diferencias consecutivas de $CO_2$ en función del tiempo (1960, 1961, etc...), en **negrita**
 
@@ -391,7 +406,7 @@ plot(x = year, y = dif,
      xlab = "Year",
      ylab = "CO2 increasing",
      main = "Consecutive differences in CO2 concentration (ppm)",
-     xlim = c(1960, 2020),
+     xlim = c(1960, 1997),
      ylim = c(0.2, 2.7)
      )
 ```
