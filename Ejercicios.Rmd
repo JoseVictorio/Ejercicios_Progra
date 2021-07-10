@@ -7,7 +7,13 @@ author:
 - "Jose Victorio Gonzales          17160051"
 - "Daniel Yauri Leiva              17160208"
 date: "10/07/2021"
-output: html_document
+output: 
+html_document:
+  toc: true
+  toc_depth: 5
+  toc_float: 
+  collapsed: false
+  smooth_scroll: true
 header-includes:
   - \renewcommand{\and}{\\}
 ---
@@ -15,13 +21,16 @@ header-includes:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Este documento R Markdown presenta la resolución de ejercicios del Curso de Programación II. Se adjunta el repositorio con los archivos utilizados en el siguiente [enlace](https://github.com/JoseVictorio/Ejercicios_Progra).
+
+## **Introducción**
+> ***Este documento R Markdown presenta la resolución de ejercicios del Curso de Programación II. Se adjunta el repositorio con los archivos utilizados en el siguiente [enlace](https://github.com/JoseVictorio/Ejercicios_Progra).***
 
 ```{r }
+#Comenzaremos subiendo los datos que usaremos
 load("datos.Rdata")
 ```
 
-## 1ra Parte
+### ***Parte 1***
 
 Cargar las variables almacenadas en el siguiente archivo [RData](https://goo.gl/uDzU8v).
 
@@ -207,7 +216,7 @@ as_tibble(conc) %>%
 
 ```
 
-## Parte 2
+### ***Parte 2***
 
 **1. 1.Graficar los puntos $(1,1),(2,4),(3,6),(4,8),(5,25),(6,36),(7,49),(8,61),(9,81),(10,100)$ en un plano utilizando RStudio.**
 ```{r}
@@ -422,7 +431,7 @@ rainf <- read_csv("rainfall.csv") %>%
 
 ```
 
-## Parte 3
+### ***Parte 3***
 
 **15. Manipule los dataframe según se solicite**
 
