@@ -839,30 +839,15 @@ summarise(NAVALUES,
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Cree una función que calcule, a partir de los datos de preicpitación mensual, la <strong>climatología (Ene-Dic)</strong> para el <strong>período 1980-2010</strong>.</li>
 </ol>
-<pre class="r"><code>pp8010 &lt;-
-  ppMonth %&gt;% 
-  filter(date &gt;= &quot;1980-01-01&quot; &amp; date &lt;=&quot;2010-12-31&quot;) %&gt;% 
-  print() %&gt;% 
-  group_by(month) %&gt;%
-  summarise(
-    ppmean = mean(pp, na.rm = T)
-  ) %&gt;%
-  print()</code></pre>
-<pre><code>## # A tibble: 371 x 4
-##    date       pp misVal month
-##    &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 1980-02  0.1     0   02   
-##  2 1980-03  2.72    0   03   
-##  3 1980-04  0.3     0   04   
-##  4 1980-05  0.21    0   05   
-##  5 1980-06  0       0   06   
-##  6 1980-07  0       0   07   
-##  7 1980-08  0       0   08   
-##  8 1980-09 NA      46.7 09   
-##  9 1980-10  0.95    0   10   
-## 10 1980-11  0.41    0   11   
-## # ... with 361 more rows
-## # A tibble: 12 x 2
+<pre class="r"><code>pp_mean &lt;- function(data){
+  periodo &lt;- filter(data, date &gt;= &quot;1980-01-01&quot; &amp; date &lt;=&quot;2010-12-31&quot;)
+   meses &lt;- group_by(periodo, month)
+  media &lt;- summarise(meses, ppmean= mean(pp, na.rm = T))
+  return (media)
+}
+
+pp_mean(ppMonth)</code></pre>
+<pre><code>## # A tibble: 12 x 2
 ##    month  ppmean
 ##    &lt;chr&gt;   &lt;dbl&gt;
 ##  1 01     5.35  

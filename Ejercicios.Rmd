@@ -543,16 +543,14 @@ d) Cree una función que calcule, a partir de los datos de preicpitación mensua
 
 ```{r}
 
-pp8010 <-
-  ppMonth %>% 
-  filter(date >= "1980-01-01" & date <="2010-12-31") %>% 
-  print() %>% 
-  group_by(month) %>%
-  summarise(
-    ppmean = mean(pp, na.rm = T)
-  ) %>%
-  print()
+pp_mean <- function(data){
+  periodo <- filter(data, date >= "1980-01-01" & date <="2010-12-31")
+   meses <- group_by(periodo, month)
+  media <- summarise(meses, ppmean= mean(pp, na.rm = T))
+  return (media)
+}
 
+pp_mean(ppMonth)
 ```
 e) Poltear (boxplot) la variabilidad de los valores mensuales (Ene-Dic) para el período 1980-2013.
 
