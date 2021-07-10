@@ -279,7 +279,7 @@ det() = nos calcula el determinante de una matriz cuadrada
 eigen() = Calcula autovalores y autovectores de matrices numéricas (dobles, enteras, lógicas) o complejas.
 **11. Considerando las matrices**
 
-$B= \begin{pmatrix} 
+$A= \begin{pmatrix} 
 1 & 2 & 3 & 4 & 5 \\
 2 & 4 & 6 & 8 & 10 \\
 3 & 6 & 9 & 12 & 15 \\
@@ -292,7 +292,7 @@ $B= \begin{pmatrix}
 10 & 20 & 30 & 40 & 50
 \end{pmatrix}$
 
-$A = \begin{pmatrix}
+$B = \begin{pmatrix}
   0 & 1 & 0 & 1 & 0 \\
   1 & 0 & 1 & 0 & 1 \\
   0 & 1 & 0 & 1 & 0 \\
