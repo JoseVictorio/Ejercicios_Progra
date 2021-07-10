@@ -178,7 +178,7 @@ length(nota[nota >= 4.9])/length(nota)*100
 
 **8. Realiza el gráfico de diagramas de caja de las notas de cada grupo, para poder comparar el nivel de cada uno de ellos.**
 
-```{r, fig.width=5, fig.height=5, out.width= "70%", out.height="70%", fig.align='center'}
+```{r, fig.width=5, fig.height=5, out.width= "50%", out.height="50%", fig.align='center'}
   boxplot(nota~grupo, 
           main = "Gráfico comparativo de las notas por grupo",
           xlab = "Grupo",
@@ -231,7 +231,7 @@ as_tibble(conc) %>%
 a <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 b <- c(1, 4, 6, 8, 25, 36, 49, 61, 81, 100)
 
-plot(a, b)
+plot(a, b, pch = 16, col = rainbow(25))
 ```
 
 **2. Ingresar la matriz A en RStudio**
@@ -402,7 +402,7 @@ dif
   
 - Crear un **plot** con lineas y puntos mostrando las diferencias consecutivas de $CO_2$ en función del tiempo (1960, 1961, etc...), en **negrita**
 
-```{r, out.width= "70%", out.height="70%", fig.align='center'}
+```{r, out.width= "60%", out.height="60%", fig.align='center'}
 
 plot(x = year, y = dif, 
      type = "b",
@@ -418,7 +418,7 @@ plot(x = year, y = dif,
 
 - La diferencia de concentración de $CO_2$ entre 2020 y 2019 fue igual a 2.64. Agregar un punto rojo representando esa diferencia al plot ya creado (usar una forma diferente, como `pch=4`)
 
-```{r, out.width= "70%", out.height="70%", fig.align='center'}
+```{r, out.width= "60%", out.height="60%", fig.align='center'}
 dif_2020_2019 <- 2.64
 year_2020 <- 2020
 
