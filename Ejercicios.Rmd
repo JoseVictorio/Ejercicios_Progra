@@ -159,6 +159,34 @@ as_tibble(conc) %>%
   print()
   
 ``` 
+**13. Corre el siguiente código para cargar los vectores year y co2 en memoria**
+
+``` 
+data(co2)
+means = aggregate(co2, FUN=mean)
+year = as.vector(time(means))
+co2 = as.vector(means)
+  
+``` 
+*El vector co2 contiene medidas de CO2 en la atmósfera, en unidades de ppm, durante el periodo 1959-1997. El vector year contiene sus años correspondientes.
+
+*Calcular un vector de diferencias de CO2 entre años consecutivos, que sería:
+
+ +CO2 en 1960 menos  CO2 en 1959
+ +CO2 en 1961 menos  CO2 en 1960
+
+y así sucesivamente…
+
+``` 
+dif_vector <- diff(co2) %>% 
+print()
+  
+```
+
+*Crear un plot con lineas y puntos mostrando las diferencias consecutivas de C02
+en función del tiempo (1960, 1961, etc…), en **negrita**
+
+*La diferencia de concentración de C02 entre 2020 y 2019 fue igual a 2.64. Agregar un punto rojo representando esa diferencia al plot ya creado (usar una forma diferente, como pch=4)
 
 
 
