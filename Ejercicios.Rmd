@@ -110,7 +110,7 @@ which.max(nota)
 ```
 
 **5. A partir de los vectores `grupo` y `nota` definidos.**
-```{r echo = FALSE}
+```{r}
 library(tidyverse) 
 ```
  a) Suma las notas de los 10 primeros alumnos del vector
@@ -188,14 +188,19 @@ boxplot(nota[grupo == "E"])
  ```
  e) Si la primera medida fue a las 00:00. ¿A qué hora del día se alcanzó la concentración máxima?
  ```{r}
+#Hallando el intervalo para la toma de muestras
+(24*60)/(length(conc)) 
+
 as_tibble(conc) %>% 
-  mutate(
-    hour = seq(
+  mutate(hour = seq(
     as.POSIXct("2020-01-01 00:00"),
     as.POSIXct("2020-01-01 23:59"),
     by = "5 min"
-  ) ) %>% 
+  ))%>% 
+  print() %>% 
+  filter(value == max(value)) %>% 
   print()
+
 ```
 
 ## Parte 2
@@ -353,6 +358,8 @@ co2 = as.vector(means)
   
  ```{r}
 co2
+
+#corremos un valor a la derecha
 lag(co2)
 
 dif <- co2 - lag(co2)
@@ -367,7 +374,7 @@ plot(x = year, y = dif,
      type = "b",
      pch = 16,
      xlab = "Year",
-     ylab = "CO2 difference",
+     ylab = "CO2 increasing",
      main = "Consecutive differences in CO2 concentration (ppm)",
      xlim = c(1960, 2020),
      ylim = c(0.2, 2.7)
@@ -384,8 +391,9 @@ year_2020 <- 2020
 plot(x = year, y = dif, 
      type = "b",
      pch = 16,
-     xlab = "Año", 
-     ylab = "CO2 aumento por año",
+     xlab = "Year", 
+     ylab = "CO2 increasing",
+     main = "Consecutive differences in CO2 concentration (ppm)",
      xlim = c(1960, 2020),
      ylim = c(0.2, 2.7))
 points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
@@ -400,9 +408,7 @@ points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
 
 rainf <- read_csv("rainfall.csv") %>% 
   select(sep:name) %>% #seleccionamos las columnas con las que trabajaremos
-  print() %>% 
   gather(key = "mes", value = "pp", 1:9) %>% #acomodamos los datos en dos columnas
-  print() %>%
   filter(pp >= 180) %>% #aplicamos el filtro a la columna "pp"
   print() %>% 
   collect %>% .[[1]] %>% #visualizamos el resultado de las estaciones en un vector
@@ -420,8 +426,9 @@ Utilizando el csv **(raingaugeDataset.csv)** de datos de precipitación diaria (
 
 #filtrando los datos de nuestra estación en el archivo "listRaingauge.csv"
 MetEst <- read_csv("listRaingauge.csv") %>% 
-  filter(DEPARTAMENTO == "LAMBAYEQUE", NOM_EST == "LAMBAYEQUE") %>% 
-  print()
+  filter(DEPARTAMENTO == "LAMBAYEQUE", NOM_EST == "LAMBAYEQUE")
+
+MetEst
 ```
 
 ``` {r}
@@ -430,8 +437,9 @@ dataL <- read_csv("raingaugeDataset.csv") %>%
   select(date, "qc00000301") %>% #seleccionando la columna de nuestra estación
   mutate(date = as.Date(date, format = "%d/%m/%Y")) %>% #dandole un formato de fecha a la columna date"
   rename(pp = qc00000301) %>% #renombramos la columna 
-  arrange(date) %>% #ordenamos los datos 
-  as.tibble() 
+  arrange(date) #ordenamos los datos 
+ 
+dataL
 ```
 
 ``` {r}
@@ -454,6 +462,7 @@ NAVALUES <-
   mutate( #creando variable que indicará el número de missing values de cada mes
     misVal = is.na(pp) #retorna la suma del conteo de NA de la columna "pp"
   )
+NAVALUES
 ```
 ``` {r}
 #obteniendo la suma de NA 
