@@ -58,15 +58,19 @@ round(c, 2)
  a) $1+2+3+\ldots + 1000$
  
  ```{r}
-(1000*(1000+1))/2 #(n*(n+1))/2
-
-sum(1:1000)
+Sn<-function(n){
+  n*(n+1)/2
+}
+Sn(1000)
  ```
  
  b) $1+2+4+8+16+\ldots + 1024$
  
   ```{r}
-(1-(2^(10+1)))/(1-2) #(1-(r^(n+1)))/(1-r)
+Sx<-function(a1, r, n){
+  a1*(r**n-1)/(r-1)
+}
+Sx(1, 2, 11)
  ```
 
 **3. El vector `grupo` representa el grupo al que pertenece una serie de alumnos:**
@@ -83,7 +87,7 @@ length(grupo)
  b) ¿En qué posiciones del vector está la letra “A”?
  
    ```{r}
-
+which(grupo == "A")
  ```
 
 **4. El vector `nota` representa la nota de un examen de los alumnos que están en los grupos del vector `grupo`.**
@@ -110,8 +114,8 @@ which.max(nota)
 ```
 
 **5. A partir de los vectores `grupo` y `nota` definidos.**
-```{r echo = FALSE}
-library(tidyverse) 
+```{r warning = FALSE, include =FALSE}
+library(tidyverse)
 ```
  a) Suma las notas de los 10 primeros alumnos del vector
  ```{r}
@@ -188,14 +192,19 @@ boxplot(nota[grupo == "E"])
  ```
  e) Si la primera medida fue a las 00:00. ¿A qué hora del día se alcanzó la concentración máxima?
  ```{r}
+#Hallando el intervalo para la toma de muestras
+(24*60)/(length(conc)) 
+
 as_tibble(conc) %>% 
-  mutate(
-    hour = seq(
+  mutate(hour = seq(
     as.POSIXct("2020-01-01 00:00"),
     as.POSIXct("2020-01-01 23:59"),
     by = "5 min"
-  ) ) %>% 
+  ))%>% 
+  print() %>% 
+  filter(value == max(value)) %>% 
   print()
+
 ```
 
 ## Parte 2
@@ -211,7 +220,9 @@ plot(a, b)
 **2. Ingresar la matriz A en RStudio**
 $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 3 & 6 & 9 \\ 4 & 8 & 12  \end{pmatrix}$
 ```{r}
-A<-cbind(seq(1, 4), seq(2, 8, by=2), seq(3, 12, by = 3))
+A<-cbind(seq(1, 4), 
+         seq(2, 8, by = 2), 
+         seq(3, 12, by = 3))
 A
 ```
 
@@ -279,7 +290,7 @@ det() = nos calcula el determinante de una matriz cuadrada
 eigen() = Calcula autovalores y autovectores de matrices numéricas (dobles, enteras, lógicas) o complejas.
 **11. Considerando las matrices**
 
-$A= \begin{pmatrix} 
+$B= \begin{pmatrix} 
 1 & 2 & 3 & 4 & 5 \\
 2 & 4 & 6 & 8 & 10 \\
 3 & 6 & 9 & 12 & 15 \\
@@ -292,7 +303,7 @@ $A= \begin{pmatrix}
 10 & 20 & 30 & 40 & 50
 \end{pmatrix}$
 
-$B = \begin{pmatrix}
+$A = \begin{pmatrix}
   0 & 1 & 0 & 1 & 0 \\
   1 & 0 & 1 & 0 & 1 \\
   0 & 1 & 0 & 1 & 0 \\
@@ -353,6 +364,8 @@ co2 = as.vector(means)
   
  ```{r}
 co2
+
+#corremos un valor a la derecha
 lag(co2)
 
 dif <- co2 - lag(co2)
@@ -367,7 +380,7 @@ plot(x = year, y = dif,
      type = "b",
      pch = 16,
      xlab = "Year",
-     ylab = "CO2 difference",
+     ylab = "CO2 increasing",
      main = "Consecutive differences in CO2 concentration (ppm)",
      xlim = c(1960, 2020),
      ylim = c(0.2, 2.7)
@@ -384,8 +397,9 @@ year_2020 <- 2020
 plot(x = year, y = dif, 
      type = "b",
      pch = 16,
-     xlab = "Año", 
-     ylab = "CO2 aumento por año",
+     xlab = "Year", 
+     ylab = "CO2 increasing",
+     main = "Consecutive differences in CO2 concentration (ppm)",
      xlim = c(1960, 2020),
      ylim = c(0.2, 2.7))
 points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
@@ -400,9 +414,7 @@ points(x = year_2020, y = dif_2020_2019, pch = 4, col = "red")
 
 rainf <- read_csv("rainfall.csv") %>% 
   select(sep:name) %>% #seleccionamos las columnas con las que trabajaremos
-  print() %>% 
   gather(key = "mes", value = "pp", 1:9) %>% #acomodamos los datos en dos columnas
-  print() %>%
   filter(pp >= 180) %>% #aplicamos el filtro a la columna "pp"
   print() %>% 
   collect %>% .[[1]] %>% #visualizamos el resultado de las estaciones en un vector
@@ -420,8 +432,9 @@ Utilizando el csv **(raingaugeDataset.csv)** de datos de precipitación diaria (
 
 #filtrando los datos de nuestra estación en el archivo "listRaingauge.csv"
 MetEst <- read_csv("listRaingauge.csv") %>% 
-  filter(DEPARTAMENTO == "LAMBAYEQUE", NOM_EST == "LAMBAYEQUE") %>% 
-  print()
+  filter(DEPARTAMENTO == "LAMBAYEQUE", NOM_EST == "LAMBAYEQUE")
+
+MetEst
 ```
 
 ``` {r}
@@ -430,8 +443,9 @@ dataL <- read_csv("raingaugeDataset.csv") %>%
   select(date, "qc00000301") %>% #seleccionando la columna de nuestra estación
   mutate(date = as.Date(date, format = "%d/%m/%Y")) %>% #dandole un formato de fecha a la columna date"
   rename(pp = qc00000301) %>% #renombramos la columna 
-  arrange(date) %>% #ordenamos los datos 
-  as.tibble() 
+  arrange(date) #ordenamos los datos 
+ 
+dataL
 ```
 
 ``` {r}
@@ -454,6 +468,7 @@ NAVALUES <-
   mutate( #creando variable que indicará el número de missing values de cada mes
     misVal = is.na(pp) #retorna la suma del conteo de NA de la columna "pp"
   )
+NAVALUES
 ```
 ``` {r}
 #obteniendo la suma de NA 
